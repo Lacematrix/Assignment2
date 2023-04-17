@@ -1,0 +1,28 @@
+#background{
+  -fx-background-image: url("GUI-img/ganyu.jpg");
+  -fx-background-size: cover;
+}
+#username{
+  -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+#password{
+  -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+#enter{
+  -fx-background-color: rgba(114, 15, 22, 0.5);
+  -fx-font-size: 16;
+  -fx-font-weight: bold;
+}
+
+#register{
+  -fx-background-color: rgba(114, 15, 22, 0);
+  -fx-font-size: 10;
+}
+
+#close{
+  -fx-background-image: url("GUI-img/close.png");
+  -fx-background-size: cover;
+  -fx-background-color: rgba(255, 255, 255, 0);
+}
