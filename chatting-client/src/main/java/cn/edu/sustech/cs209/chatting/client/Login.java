@@ -17,7 +17,7 @@ public class Login extends Application {
     return nameAndWord;
   }
 
-  public void setNameAndWord(String[] nameAndWord){
+  public void setNameAndWord(String[] nameAndWord) {
     this.nameAndWord = nameAndWord;
   }
 

@@ -4,15 +4,15 @@ import cn.edu.sustech.cs209.chatting.common.Message;
 
 import java.io.IOException;
 
-public class Sender{
+public class Sender {
 
-    Client client;
+  Client client;
 
-    public Sender(Client client) {
-        this.client = client;
-    }
+  public Sender(Client client) {
+    this.client = client;
+  }
 
-    public void send(Message message) throws IOException {
-        client.write.writeObject(message);
-    }
+  public void send(Message message) throws IOException {
+    client.write.writeObject(message);
+  }
 }

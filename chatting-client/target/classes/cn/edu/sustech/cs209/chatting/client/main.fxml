@@ -7,7 +7,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -24,7 +23,7 @@
     <SplitPane dividerPositions="0.25" focusTraversable="true" VBox.vgrow="ALWAYS">
       <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
         <items>
-            <Label fx:id="userAvailable" text="available">
+            <Label fx:id="userAvailable" text="history/available">
                <font>
                   <Font size="28.0" />
                </font>
@@ -32,12 +31,9 @@
               <ListView fx:id="chatList" prefHeight="200.0" prefWidth="200.0" />
         </items>
       </SplitPane>
-        <SplitPane dividerPositions="0.85, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+        <SplitPane dividerPositions="0.85" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
          <Label fx:id="userChoose" text="Label" />
             <ListView fx:id="chatContentList" prefHeight="200.0" prefWidth="200.0" />
-            <HBox prefHeight="100.0" prefWidth="200.0">
-                <TextArea fx:id="inputArea" prefHeight="138.0" prefWidth="624.0" wrapText="true" HBox.hgrow="ALWAYS" />
-            </HBox>
         </SplitPane>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
