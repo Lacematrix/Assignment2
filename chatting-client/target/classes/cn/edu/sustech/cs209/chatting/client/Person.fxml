@@ -20,8 +20,9 @@
             <SplitPane dividerPositions="0.7" orientation="VERTICAL">
                <items>
                   <ListView fx:id="personChatList" />
-                  <SplitPane dividerPositions="0.5">
+                  <SplitPane dividerPositions="0.5, 0.5">
                      <items>
+                        <Button mnemonicParsing="false" onAction="#doSendFile" prefHeight="111.0" prefWidth="36.0" text="File" />
                         <TextArea fx:id="inputArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
                         <Button fx:id="Send" alignment="CENTER" mnemonicParsing="false" onAction="#doSendMessage" prefHeight="116.0" prefWidth="55.0" text="send" />
                      </items>

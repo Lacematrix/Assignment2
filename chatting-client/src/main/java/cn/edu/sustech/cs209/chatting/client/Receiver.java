@@ -30,7 +30,7 @@ public class Receiver extends Thread {
           userList = userReal.toArray(new String[]{});
           client.userList = userList;
           client.updateUserList();
-        } else if (message.getModel() == 1) {
+        } else if (message.getModel() == 1 || message.getModel() == 6) {
           // TODO:show message;
           client.updateMessagePerson(message);
         } else if (message.getModel() == 2) {

@@ -16,8 +16,12 @@ public class Message implements Serializable {
 
   private String[] passAndWord;
 
+  private byte[] file;
+
+  private String fileType;
+
   private boolean reply;
-  private final int model; //0表示用户列表,1表示个人信息,2表示群列表,3系统信息,4表示群信息,5注册信息
+  private final int model; //0表示用户列表,1表示个人信息,2表示群列表,3系统信息,4表示群信息,5注册信息,6表示文件
 
   public Message(Long timestamp, String sentBy, String sendTo, String data) {
     this.timestamp = timestamp;
@@ -57,6 +61,14 @@ public class Message implements Serializable {
     model = 5;
   }
 
+  public Message(byte[] fileBytes, String sendBy, String fileType, String sendTo){
+    this.file = fileBytes;
+    this.sentBy = sendBy;
+    this.sendTo = sendTo;
+    this.fileType = fileType;
+    model = 6;
+  }
+
   public Long getTimestamp() {
     return timestamp;
   }
@@ -87,5 +99,13 @@ public class Message implements Serializable {
 
   public boolean isReply() {
     return reply;
+  }
+
+  public byte[] getFile() {
+    return file;
+  }
+
+  public String getFileType() {
+    return fileType;
   }
 }

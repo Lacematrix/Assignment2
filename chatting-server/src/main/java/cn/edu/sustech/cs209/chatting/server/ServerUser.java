@@ -88,7 +88,7 @@ public class ServerUser extends Thread {
     try {
       while (true) {
         Message message = (Message) msgIn.readObject();
-        if (message.getModel() == 1) {
+        if (message.getModel() == 1 || message.getModel() ==6) {
           String sendTo = message.getSendTo();
           ServerUser send = ServerUser.userList.get(sendTo);
           send.msgOut.writeObject(message);

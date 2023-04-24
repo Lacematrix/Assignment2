@@ -25,10 +25,14 @@ public class History {
     }
     FileOutputStream writerStream = new FileOutputStream(file, true);
     BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(writerStream, StandardCharsets.UTF_8));
-    String msg = message.getData();
-    msg = msg.replace("\n", "%next");
-    bufferedWriter.write(message.getTimestamp() + "##" + from + "##" + msg + "##" + to + "\n");
-    bufferedWriter.close();
+    if (message.getModel() != 6) {
+      String msg = message.getData();
+      msg = msg.replace("\n", "%next");
+      bufferedWriter.write(message.getTimestamp() + "##" + from + "##" + msg + "##" + to + "\n");
+      bufferedWriter.close();
+    }else {
+
+    }
   }
 
   public List<Message> read(String otherName) throws IOException {

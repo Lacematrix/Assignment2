@@ -41,7 +41,7 @@ public class Controller implements Initializable {
 
   Client client;
 
-  PersonRoom personRoom;
+  List<PersonRoom> personRoom;
 
   GroupRoom groupRoom;
 
@@ -62,6 +62,7 @@ public class Controller implements Initializable {
       username = nameAndPass[0];
       currentUsername.setText(username);
       userChoose.setText("choose who you want to talk");
+      personRoom = new ArrayList<>();
       try {
         client = new Client(nameAndPass, this);
         int initNum = client.init();
@@ -121,15 +122,25 @@ public class Controller implements Initializable {
         }
         if (s != null) {
           stage.close();
-          if (personRoom == null) {
-            personRoom = new PersonRoom(client, username, s, this);
+          boolean flag = true;
+          for (int i = 0; i < personRoom.size(); i++) {
+            if (personRoom.get(i).sendTo.equals(s)){
+              if (personRoom.get(i).getPersonController().sendTo == null){
+                personRoom.get(i).getPersonController().sendTo = s;
+              }
+              personRoom.get(i).stage.toFront();
+              flag = false;
+              break;
+            }
+          }
+          if (flag) {
+            PersonRoom personRoomNew = new PersonRoom(client, username, s, this);
             try {
-              personRoom.showWindow();
+              personRoomNew.showWindow();
+              personRoom.add(personRoomNew);
             } catch (Exception ex) {
               throw new RuntimeException(ex);
             }
-          } else {
-            personRoom.stage.toFront();
           }
         }
       });
@@ -153,7 +164,16 @@ public class Controller implements Initializable {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        if (personRoom == null) {
+        boolean flag = true;
+        for (int i = 0; i < personRoom.size(); i++) {
+          if (personRoom.get(i).sendTo.equals(message.getSentBy())){
+            personRoom.get(i).stage.toFront();
+            personRoom.get(i).getPersonController().updateMsg(message);
+            flag = false;
+            break;
+          }
+        }
+        if (flag) {
           if (!client.friend.contains(message.getSentBy())) {
             client.friend.add(message.getSentBy());
             userLabel.get(message.getSentBy())
@@ -164,17 +184,15 @@ public class Controller implements Initializable {
               throw new RuntimeException(e);
             }
           }
-          personRoom = new PersonRoom(client, username, message.getSentBy(),
+          PersonRoom personRoomNew = new PersonRoom(client, username, message.getSentBy(),
               client.getController());
           try {
-            personRoom.showWindow();
+            personRoomNew.showWindow();
+            personRoom.add(personRoomNew);
           } catch (Exception e) {
             throw new RuntimeException(e);
           }
-          personRoom.getPersonController().updateMsg(message);
-        } else if (personRoom.sendTo.equals(message.getSentBy())) {
-          personRoom.stage.toFront();
-          personRoom.getPersonController().updateMsg(message);
+          personRoomNew.getPersonController().updateMsg(message);
         }
       }
     });
@@ -187,7 +205,9 @@ public class Controller implements Initializable {
       @Override
       public void run() {
         new ShowDialog(s);
-        personRoom.stage.close();
+        for (int i = 0; i < personRoom.size(); i++) {
+          personRoom.get(i).stage.close();
+        }
         personRoom = null;
         currentOnlineCnt.setText("LOST");
         chatList.setItems(null);
@@ -336,10 +356,11 @@ public class Controller implements Initializable {
           }
         });
         chatList.setItems(labels);
-        if (personRoom != null) {
-          if (!userList.contains(personRoom.sendTo)) {
-            new ShowDialog("You friend is offline");
-            personRoom.stage.close();
+        for (int i = 0; i < personRoom.size(); i++) {
+          if (!userList.contains(personRoom.get(i).sendTo)){
+            new ShowDialog("You friend is offline: " + personRoom.get(i).sendTo);
+            personRoom.get(i).getPersonController().sendTo = null;
+            break;
           }
         }
       }

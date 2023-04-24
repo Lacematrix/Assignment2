@@ -44,7 +44,16 @@ public class PersonRoom extends Application {
       @Override
       public void handle(WindowEvent event) {
         try {
-          controller.personRoom = null;
+          try {
+            for (int i = 0; i < controller.personRoom.size(); i++) {
+              if (controller.personRoom.get(i).sendTo.equals(sendTo)){
+                controller.personRoom.remove(i);
+                break;
+              }
+            }
+          }catch (Exception e){
+            System.out.println(e);
+          }
           stage.close();
         } catch (Exception e) {
           throw new RuntimeException(e);
